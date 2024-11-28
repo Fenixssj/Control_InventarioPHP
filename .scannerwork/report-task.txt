@@ -1,0 +1,6 @@
+projectKey=Inventario-PHP
+serverUrl=http://localhost:9000
+serverVersion=10.7.0.96327
+dashboardUrl=http://localhost:9000/dashboard?id=Inventario-PHP
+ceTaskId=6483aaca-b2da-4fa9-aed0-f4b8757f5350
+ceTaskUrl=http://localhost:9000/api/ce/task?id=6483aaca-b2da-4fa9-aed0-f4b8757f5350

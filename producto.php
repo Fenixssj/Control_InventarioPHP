@@ -202,46 +202,50 @@ if (isset($_GET['id'])) {
 </html>
 
 <script>
-// Modal and other functions
 $( "#editar_producto" ).submit(function( event ) {
   $('#actualizar_datos').attr("disabled", true);
-  var parametros = $(this).serialize();
-  $.ajax({
-      type: "POST",
-      url: "editar_producto.php",
-      data: parametros,
-      beforeSend: function(objeto){
-        $("#resultados_ajax").html("Enviando...");
-      },
-      success: function(datos){
-        $("#resultados_ajax").html(datos);
-        $('#actualizar_datos').attr("disabled", false);
-      }
-  });
+  
+ var parametros = $(this).serialize();
+	 $.ajax({
+			type: "POST",
+			url: "ajax/editar_producto.php",
+			data: parametros,
+			 beforeSend: function(objeto){
+				$("#resultados_ajax2").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajax2").html(datos);
+			$('#actualizar_datos').attr("disabled", false);
+			window.setTimeout(function() {
+				$(".alert").fadeTo(500, 0).slideUp(500, function(){
+				$(this).remove();});
+				location.replace('stock.php');
+			}, 4000);
+		  }
+	});
   event.preventDefault();
 })
-
-$('#myModal2').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget);
-  var codigo = button.data('codigo');
-  var nombre = button.data('nombre');
-  var categoria = button.data('categoria');
-  var precio = button.data('precio');
-  var stock = button.data('stock');
-  var id = button.data('id');
-  var modal = $(this);
-  modal.find('.modal-body #mod_codigo').val(codigo);
-  modal.find('.modal-body #mod_nombre').val(nombre);
-  modal.find('.modal-body #mod_categoria').val(categoria);
-  modal.find('.modal-body #mod_precio').val(precio);
-  modal.find('.modal-body #mod_stock').val(stock);
-  modal.find('.modal-body #mod_id').val(id);
-})
-
-function eliminar (id) {
-  var q = $("#q").val();
-  if (confirm("Realmente deseas eliminar el producto")) {
-    location.replace('stock.php?delete=' + id);
-  }
-}
+	$('#myModal2').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var codigo = button.data('codigo') // Extract info from data-* attributes
+		var nombre = button.data('nombre')
+		var categoria = button.data('categoria')
+		var precio = button.data('precio')
+		var stock = button.data('stock')
+		var id = button.data('id')
+		var modal = $(this)
+		modal.find('.modal-body #mod_codigo').val(codigo)
+		modal.find('.modal-body #mod_nombre').val(nombre)
+		modal.find('.modal-body #mod_categoria').val(categoria)
+		modal.find('.modal-body #mod_precio').val(precio)
+		modal.find('.modal-body #mod_stock').val(stock)
+		modal.find('.modal-body #mod_id').val(id)
+	})
+	
+	function eliminar (id){
+		var q= $("#q").val();
+		if (confirm("Realmente deseas eliminar el producto")){	
+			location.replace('stock.php?delete='+id);
+		}
+	}
 </script>
